@@ -57,4 +57,14 @@ defmodule MyEnum do
             []
         end
     end
+
+    # Split collection into two collections
+    def split(collection, count), do: _split(collection, count, [])
+
+    def _split(coll, 0, acc), do: {acc, coll}
+
+    def _split([h|t], temp, acc) do
+        _split(t, temp-1, acc ++ [h])
+    end
+
 end
