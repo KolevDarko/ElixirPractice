@@ -67,13 +67,17 @@ defmodule MyEnum do
         _split(t, temp-1, acc ++ [h])
     end
 
-#   Flatten list with arbitrary number of sublists to any depth
-    def flatten([], acc_left), do: acc_left
-    def flatten([h|t], acc_left) do
+
+    # Flatten list with any depth and children with any depths
+    def flatten([], _, _), do: []
+
+    def flatten([h|t], acc_child, acc_parent) do
         if is_list(h) do
-            acc_left ++ flatten(h, []) ++ flatten(t, [])
+            flatten(h, [], acc_child ++ acc_parent)
         else
-            flatten(t, acc_left ++ [h])
+
+            [h| flatten(t)]
         end
     end
+
 end
